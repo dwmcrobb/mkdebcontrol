@@ -1,0 +1,105 @@
+.Dd April 10, 2017
+.Dt mkdebcontrol 1
+.Os
+.Sh NAME
+.Nm mkdebcontrol
+.Nd manipulates a Debian control file (DEBIAN/control).
+.Sh SYNOPSIS
+.Nm
+.Ar -r debControlFile
+.Ar -s directory
+.Op Fl a Ar architecture
+.Op Fl d Ar description
+.Op Fl m Ar maintainer
+.Op Fl n Ar name
+.Op Fl v Ar version
+.Op Fl w Ar URL
+.Op Ar directories...
+.Sh DESCRIPTION
+.Nm
+emits a Debian control file (DEBIAN/control) on stdout from a template
+control file and a staging directory containing files to be packaged.
+It may be used when creating software packages for Debian-based
+Linux distrubutions.
+.Pp
+Its main purpose is automatically setting dependencies by checking shared
+libraries and dynamically linked binaries for dependencies.
+.Ss Required arguments
+.Bl -tag -width indent
+.It Fl f Ar debControlFile
+Uses the given \fIdebControlFile\fR as input.  This is typically used
+as a template type of input, or created as part of a software build
+process.
+.It Fl s Ar directory
+\fIdirectory\fR to be packaged.  This directory will be searched recursively
+for shared libraries and dynamically linked binaries.  Each shared library
+and dynamically linked library will be examined for external dependencies,
+and these dependencies will be added to the dependencies list.
+.El
+.Ss Optional arguments
+.Bl -tag -width indent
+.It Fl a Ar architecture
+Sets the architecture ("Architecture:") field in the control file.
+.It Fl d Ar description
+Sets the description ("Description:") field in the control file.
+.It Fl m Ar maintainer
+Sets the maintainer ("Maintainer:) field in the control file.
+.It Fl n Ar name
+Sets the package name ("Package:") field in the control file.
+.It Fl v Ar version
+Sets the version ("Version:") field in the control file.
+.It Fl w Ar URL
+Sets the home page ("Homepage:") field in the control file.
+.It Ar directories
+Additional directories to be searched recursively for shared libraries and
+dynamically linked binaries.  Each shared library and dynamically linked
+library will be examined for external dependencies, and these dependencies
+will be added to the dependencies list.
+.El
+
+.Sh EXAMPLES
+A simple example might start with a \fIdebcontrol\fR file containing:
+.Bd -literal
+    Section: libdevel
+    Priority: optional
+    Maintainer: Someone <someone@foo.bar>
+    Build-Depends: debhelper-compat (= 12), autotools-dev
+    Standards-Version: 4.4.1
+    Homepage: http://www.foo.bar
+    Package: foo
+    Version: 1.0.0
+    Architecture: amd64
+    Description: Miscellaneous C functions.
+.Ed
+
+Assuming you have all of the files for the package in staging/usr/local,
+you might then create your control file with:
+.Bd -literal
+    mkdir staging/DEBIAN
+    mkdebcontrol -f debcontrol staging/usr/local > staging/DEBIAN/control
+.Ed
+
+And then create the foo-1.0.0 package with:
+.Bd -literal
+    dpkg-deb -b --root-owner-group staging
+    dpkg-name -o staging.deb
+.Ed
+
+.Sh REAL EXAMPLES
+libDwm uses
+.Xr mkdebcontrol 1 when creating the libDwm package for Ubuntu.  See the
+top-level Makefile and packaging/debcontrol.in inside the libDwm source
+distribution.
+
+Other packages using
+.Xr mkdebcontrol 1 as part of the packaging process include libDwmAuth,
+libDwmPf, libDwmRDAP, mcblock, mcflow, mcrover and DwmDns.
+.Sh SEE ALSO
+.Xr dpkg-deb 1 ,
+.Xr dpkg-name 1 ,
+.Xr deb-control 5
+.Sh AUTHORS
+Copyright (c) 2016 Daniel W. McRobb
+.Mt dwm@mcplex.net
+.Pp
+

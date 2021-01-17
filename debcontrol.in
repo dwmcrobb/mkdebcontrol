@@ -1,0 +1,11 @@
+Section: devel
+Priority: optional
+Maintainer: Daniel McRobb <dwm@mcplex.net>
+Build-Depends: debhelper-compat (= 12), autotools-dev
+Standards-Version: 4.4.1
+Homepage: http://www.mcplex.net
+Package: mkdebcontrol
+Version: @DWM_VERSION@
+Architecture: @DEBARCH@
+Description: Emits a Debian control file on stdout from a template
+  control file and a staging directory containing files to be packaged.

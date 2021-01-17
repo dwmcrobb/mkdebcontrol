@@ -1,0 +1,13 @@
+*~
+*.o
+DwmDebControlLexer.cc
+DwmDebControlParser.cc
+DwmDebControlParser.hh
+Makefile.vars
+autom4te.cache/**
+config.log
+config.status
+debcontrol
+mkdebcontrol
+mkdebcontrol_0.0.0_amd64.deb
+staging/**
