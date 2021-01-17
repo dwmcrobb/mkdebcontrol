@@ -286,7 +286,6 @@ static void GetExecutables(const string & dirName, set<string> & paths)
             if ((fs::status(p).permissions() & fs::perms::owner_exec)
                 != fs::perms::none) {
               paths.insert(filename);
-              cerr << "filename: " << filename << '\n';
             }
           }
           break;
