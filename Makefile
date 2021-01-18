@@ -8,7 +8,7 @@ OBJFILES    = DwmDebControlParser.o \
               mkdebcontrol.o
 OBJDEPS     = $(OBJFILES:%.o=deps/%_deps)
 PKGTARGETS  = ${STAGING}${PREFIXDIR}/bin/mkdebcontrol \
-              ${STAGING}${PREFIXDIR}/man/mkdebcontrol.1
+              ${STAGING}${PREFIXDIR}/man/man1/mkdebcontrol.1
 
 mkdebcontrol: ${OBJFILES}
 	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ $^ ${OSLIBS}
@@ -24,7 +24,7 @@ pkgprep:: ${PKGTARGETS}
 ${STAGING}${PREFIXDIR}/bin/mkdebcontrol: mkdebcontrol
 	./install-sh -s -c -m 555 $< $@
 
-${STAGING}${PREFIXDIR}/man/mkdebcontrol.1: mkdebcontrol.1
+${STAGING}${PREFIXDIR}/man/man1/mkdebcontrol.1: mkdebcontrol.1
 	./install-sh -c -m 644 $< $@
 
 DwmDebControlLexer.cc: DwmDebControlLexer.lex DwmDebControlParser.hh
