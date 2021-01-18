@@ -11,7 +11,7 @@ PKGTARGETS  = ${STAGING}${PREFIXDIR}/bin/mkdebcontrol \
               ${STAGING}${PREFIXDIR}/man/mkdebcontrol.1
 
 mkdebcontrol: ${OBJFILES}
-	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ $^
+	${CXX} ${CXXFLAGS} ${LDFLAGS} -o $@ $^ ${OSLIBS}
 
 package:: pkgprep
 	if [ ! -d staging/DEBIAN ]; then mkdir staging/DEBIAN; fi

@@ -29,7 +29,7 @@ define(DWM_SET_PKGVARS,[
 ])
 
 dnl #------------------------------------------------------------------------
-define(MCLOC_CHECK_LIB_TRIVIAL_CPLUSPLUS,[
+define(DWM_CHECK_LIB_TRIVIAL_CPLUSPLUS,[
   AC_LANG_PUSH(C++)
   prev_CPPFLAGS="$CXXFLAGS"
   prev_LDFLAGS="$LDFLAGS"
@@ -46,7 +46,7 @@ define(MCLOC_CHECK_LIB_TRIVIAL_CPLUSPLUS,[
 ])
 
 dnl #------------------------------------------------------------------------
-define(MCLOC_NEED_LIBSTDCPPFS,[
+define(DWM_NEED_LIBSTDCPPFS,[
   AC_MSG_CHECKING(if we need libstdc++fs)
   AC_LANG_PUSH(C++)
   prev_CPPFLAGS="$CXXFLAGS"
