@@ -76,9 +76,11 @@ namespace Dwm {
       
       void Add(const std::pair<std::string,std::string> & entry);
 
-      void RemoveDepend(const PkgDepend & dep);
+      std::set<PkgDepend>::const_iterator
+      RemoveDepend(const PkgDepend & dep);
 
-      void RemovePreDepend(const PkgDepend & dep);
+      std::set<PkgDepend>::const_iterator
+      RemovePreDepend(const PkgDepend & dep);
 
       void AddDepend(const PkgDepend & dep);
 

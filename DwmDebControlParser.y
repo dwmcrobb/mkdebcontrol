@@ -297,17 +297,27 @@ namespace Dwm {
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    void Control::RemoveDepend(const PkgDepend & dep)
+    std::set<PkgDepend>::const_iterator
+    Control::RemoveDepend(const PkgDepend & dep)
     {
-      _depends.erase(dep);
+      auto  it = _depends.find(dep);
+      if (it != _depends.end()) {
+        it = _depends.erase(it);
+      }
+      return it;
     }
 
     //------------------------------------------------------------------------
     //!  
     //------------------------------------------------------------------------
-    void Control::RemovePreDepend(const PkgDepend & dep)
+    std::set<PkgDepend>::const_iterator
+    Control::RemovePreDepend(const PkgDepend & dep)
     {
-      _predepends.erase(dep);
+      auto  it = _predepends.find(dep);
+      if (it != _predepends.end()) {
+        it = _predepends.erase(it);
+      }
+      return it;
     }
 
     //------------------------------------------------------------------------

@@ -306,14 +306,19 @@ static void GetExecutables(const string & dirName, set<string> & paths)
 void UpdateDepends(Dwm::Deb::Control & debctrl)
 {
   if (! debctrl.Depends().empty()) {
+    set<pair<Dwm::Deb::PkgDepend,Dwm::Deb::PkgDepend>>  changeDeps;;
     for (auto dep : debctrl.Depends()) {
       auto  installedVers = Dwm::Deb::PkgDepend::InstalledVersion(dep.Package());
       if (installedVers > dep.Version()) {
-        debctrl.RemoveDepend(dep);
-        dep.Version(installedVers);
-        dep.Operator(">=");
-        debctrl.AddDepend(dep);
+        Dwm::Deb::PkgDepend  newDep = dep;
+        newDep.Version(installedVers);
+        newDep.Operator(">=");
+        changeDeps.insert({dep,newDep});
       }
+    }
+    for (auto & changeDep : changeDeps) {
+      debctrl.RemoveDepend(changeDep.first);
+      debctrl.AddDepend(changeDep.second);
     }
   }
   return;
@@ -325,14 +330,20 @@ void UpdateDepends(Dwm::Deb::Control & debctrl)
 void UpdatePreDepends(Dwm::Deb::Control & debctrl)
 {
   if (! debctrl.PreDepends().empty()) {
+    set<pair<Dwm::Deb::PkgDepend,Dwm::Deb::PkgDepend>>  changeDeps;
     for (auto dep : debctrl.PreDepends()) {
-      auto  installedVers = Dwm::Deb::PkgDepend::InstalledVersion(dep.Package());
+      auto  installedVers =
+        Dwm::Deb::PkgDepend::InstalledVersion(dep.Package());
       if (installedVers > dep.Version()) {
-        debctrl.RemovePreDepend(dep);
-        dep.Version(installedVers);
-        dep.Operator(">=");
-        debctrl.AddPreDepend(dep);
+        Dwm::Deb::PkgDepend  newDep = dep;
+        newDep.Version(installedVers);
+        newDep.Operator(">=");
+        changeDeps.insert({dep,newDep});
       }
+    }
+    for (auto & changeDep : changeDeps) {
+      debctrl.RemovePreDepend(changeDep.first);
+      debctrl.AddPreDepend(changeDep.second);
     }
   }
   return;
