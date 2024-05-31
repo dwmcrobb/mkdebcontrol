@@ -20,7 +20,7 @@ gmake package
 ## Install
 ```gmake package``` will create a Debian package which can be install with ```dpkg```.  For example,
 ```
-dpkg -i mkdebcontrol_1.0.0_amd64.deb
+dpkg -i mkdebcontrol_1.0.5_amd64.deb
 ```
 
 ### Usage
