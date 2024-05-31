@@ -50,6 +50,7 @@ extern "C" {
 
 #include <algorithm>
 #include <cctype>
+#include <cstring>
 #include <filesystem>
 #include <iostream>
 #include <regex>
