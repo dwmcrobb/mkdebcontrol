@@ -1,5 +1,7 @@
 2024-05-31  Daniel McRobb  <dwm@thrip.mcplex.net>
 
+	* tagged as mkdebcontrol-1.0.7
+
 	* mkdebcontrol.cc: Deal with 'diversion by ...' output from
 	'dpkg -S'.  First noticed on Ubuntu 24.04 LTS.
 
