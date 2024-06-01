@@ -187,16 +187,22 @@ static string GetPackage(const string & shlib)
 {
   string  rc;
   string  cmd("dpkg -S ");
-  cmd += shlib + " | tail -1";
+  cmd += shlib + " 2>/dev/null | tail -1";
   HandleSigPipe();
   FILE  *cmdpipe = popen(cmd.c_str(), "r");
   if (cmdpipe) {
-    regex rgx("([^:]+)[:].+", regex::ECMAScript|regex::optimize);
+    regex  rgx("([^:]+)[:].+", regex::ECMAScript|regex::optimize);
+    regex  rgxd("diversion by ([^ ]+) .+", regex::ECMAScript|regex::optimize);
     smatch  sm;
     char    line[4096] = { '\0' };
     while (fgets(line, 4096, cmdpipe) != NULL) {
       string  s(line);
-      if (regex_search(s, sm, rgx)) {
+      if (regex_search(s, sm, rgxd)) {
+        if (sm.size() == 2) {
+          rc = sm[1].str();
+        }
+      }
+      else if (regex_search(s, sm, rgx)) {
         if (sm.size() == 2) {
           rc = sm[1].str();
         }
