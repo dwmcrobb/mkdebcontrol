@@ -1,6 +1,6 @@
 2024-05-31  Daniel McRobb  <dwm@thrip.mcplex.net>
 
 	* mkdebcontrol.cc: Deal with 'diversion by ...' output from
-	'dpkg -S' output.  First noticed on Ubuntu 24.04 LTS.
+	'dpkg -S'.  First noticed on Ubuntu 24.04 LTS.
 
 
